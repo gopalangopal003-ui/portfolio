@@ -1,83 +1,136 @@
- import { motion } from "framer-motion";
-import { FaGithub } from "react-icons/fa";
+  import { motion } from "framer-motion";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 function Projects() {
-
   const projects = [
     {
       title: "Weather Management System",
       description:
-        "A weather application that provides weather details and helps users monitor weather conditions with a simple interface.",
-      tech: "JavaScript | API | HTML | CSS"
+        "A weather application that fetches real-time weather information and displays temperature, humidity, weather conditions and forecast data.",
+      tech: ["Java", "Spring Boot", "REST API", "JSON"],
+      github: "https://github.com/gopalangopal003-ui",
+      demo: "#",
     },
-
     {
-      title: "HTML Web Project",
+      title: "HTML & CSS Website",
       description:
-        "A responsive website developed using HTML and CSS with clean design and proper webpage structure.",
-      tech: "HTML | CSS | Responsive Design"
+        "A responsive website developed using HTML and CSS with a clean layout, modern design and user-friendly interface.",
+      tech: ["HTML", "CSS", "JavaScript"],
+      github: "https://github.com/gopalangopal003-ui",
+      demo: "#",
     },
-
     {
-      title: "Student Management System",
+      title: "Java Application",
       description:
-        "A Java based application used to manage student records with add, update and view operations.",
-      tech: "Java | MySQL | OOP"
-    }
+        "A Java-based application developed to practice object-oriented programming, problem solving and core Java concepts.",
+      tech: ["Java", "OOP", "MySQL"],
+      github: "https://github.com/gopalangopal003-ui",
+      demo: "#",
+    },
   ];
 
-
   return (
-
     <section
       id="projects"
-      className="min-h-screen bg-black text-white px-6 py-20"
+      className="bg-black text-white py-24 px-6"
     >
+      <div className="max-w-6xl mx-auto">
 
-      <h2 className="text-5xl font-bold text-center mb-12">
-        My <span className="text-blue-500">Projects</span>
-      </h2>
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <p className="text-blue-500 font-semibold mb-2">
+            WHAT I'VE BUILT
+          </p>
 
+          <h2 className="text-4xl md:text-5xl font-bold">
+            My Projects
+          </h2>
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+          <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
+            Here are some of the projects I've worked on while learning
+            software development and modern web technologies.
+          </p>
+        </motion.div>
 
-        {projects.map((project,index)=>(
+        {/* Project Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          <motion.div
-            key={index}
-            whileHover={{ scale:1.05 }}
-            className="bg-gray-900 p-6 rounded-2xl"
-          >
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.15,
+              }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+              className="group bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-blue-500 transition duration-300"
+            >
 
-            <h3 className="text-2xl font-bold text-blue-500">
-              {project.title}
-            </h3>
+              {/* Number */}
+              <div className="text-blue-500 text-sm font-bold mb-5">
+                0{index + 1}
+              </div>
 
+              {/* Title */}
+              <h3 className="text-2xl font-bold mb-4 group-hover:text-blue-500 transition">
+                {project.title}
+              </h3>
 
-            <p className="text-gray-400 mt-4">
-              {project.description}
-            </p>
+              {/* Description */}
+              <p className="text-gray-400 leading-7 mb-6">
+                {project.description}
+              </p>
 
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {project.tech.map((technology) => (
+                  <span
+                    key={technology}
+                    className="text-sm bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full"
+                  >
+                    {technology}
+                  </span>
+                ))}
+              </div>
 
-            <p className="text-sm mt-4 text-gray-300">
-              {project.tech}
-            </p>
+              {/* Buttons */}
+              <div className="flex gap-4">
 
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 border border-gray-700 px-4 py-2 rounded-lg hover:border-blue-500 hover:text-blue-500 transition"
+                >
+                  <FaGithub />
+                  GitHub
+                </a>
 
-            <button className="mt-6 flex items-center gap-2 text-blue-400">
-              <FaGithub />
-              View Code
-            </button>
+                <a
+                  href={project.demo}
+                  className="flex items-center gap-2 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                >
+                  <FaExternalLinkAlt />
+                  Demo
+                </a>
 
+              </div>
 
-          </motion.div>
+            </motion.div>
+          ))}
 
-        ))}
-
+        </div>
       </div>
-
     </section>
-
   );
 }
 

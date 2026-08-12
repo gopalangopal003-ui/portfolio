@@ -1,74 +1,115 @@
  import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaArrowRight } from "react-icons/fa";
 
 function Hero() {
   return (
-    <section className="min-h-screen bg-black text-white flex items-center justify-center px-6 pt-20">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <section
+      id="home"
+      className="min-h-screen bg-black text-white flex items-center justify-center px-6 pt-24 overflow-hidden"
+    >
+      <div className="max-w-6xl w-full mx-auto grid md:grid-cols-2 gap-12 items-center">
 
-        {/* Left */}
+        {/* LEFT SIDE */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h3 className="text-xl text-gray-400">Hello, I'm</h3>
+          <p className="text-blue-400 text-lg font-medium mb-3">
+            👋 Hello, I'm
+          </p>
 
-          <h1 className="text-6xl md:text-7xl font-bold text-blue-500 mt-2">
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
             Gopalan
           </h1>
 
-          <h2 className="text-2xl mt-4">
-            Computer Science Student
+          <h2 className="text-2xl md:text-3xl font-semibold mt-4">
+            <span className="text-blue-500">Java</span> &{" "}
+            <span className="text-blue-500">React</span> Developer
           </h2>
 
-          <p className="mt-6 text-gray-400 leading-8">
-            Passionate about Web Development, Java, React and Artificial
-            Intelligence. I enjoy building modern websites and learning
-            new technologies.
+          <p className="text-gray-400 text-lg leading-8 mt-6 max-w-xl">
+            I'm a Computer Science student passionate about building modern
+            web applications using Java, React.js and AI technologies.
+            I enjoy turning ideas into practical and user-friendly projects.
           </p>
 
-          <div className="flex gap-4 mt-8">
+          {/* BUTTONS */}
+          <div className="flex flex-wrap gap-4 mt-8">
+
             <a
               href="/resume.pdf"
               target="_blank"
               rel="noreferrer"
-              className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full"
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full font-semibold transition duration-300 hover:scale-105"
             >
-              View Resume
+              Download Resume
             </a>
 
             <a
-              href="#contact"
-              className="border border-blue-500 hover:bg-blue-500 px-6 py-3 rounded-full"
+              href="#projects"
+              className="flex items-center gap-2 border border-blue-500 hover:bg-blue-600 px-6 py-3 rounded-full font-semibold transition duration-300 hover:scale-105"
             >
-              Contact Me
+              View Projects
+              <FaArrowRight />
             </a>
+
           </div>
 
-          <div className="flex gap-6 mt-8 text-3xl">
-            <a href="https://github.com" target="_blank" rel="noreferrer">
+          {/* SOCIAL LINKS */}
+          <div className="flex gap-5 mt-8">
+
+            <a
+              href="https://github.com/gopalangopal003-ui"
+              target="_blank"
+              rel="noreferrer"
+              className="text-3xl text-gray-400 hover:text-white transition duration-300 hover:scale-110"
+              aria-label="GitHub"
+            >
               <FaGithub />
             </a>
 
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-3xl text-gray-400 hover:text-blue-500 transition duration-300 hover:scale-110"
+              aria-label="LinkedIn"
+            >
               <FaLinkedin />
             </a>
+
           </div>
         </motion.div>
 
-        {/* Right */}
+        {/* RIGHT SIDE - PROFILE IMAGE */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="flex justify-center"
+          transition={{ duration: 1 }}
+          className="flex justify-center relative"
         >
-          <img
-            src="/profile.jpeg"
-            alt="Gopalan"
-            className="w-80 h-80 rounded-full object-cover border-4 border-blue-500 shadow-2xl"
-          />
+
+          {/* Glow */}
+          <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-blue-600/20 rounded-full blur-3xl"></div>
+
+          {/* Image */}
+          <motion.div
+            animate={{ y: [0, -12, 0] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="relative"
+          >
+            <img
+              src="/profile.jpeg"
+              alt="Gopalan"
+              className="w-72 h-72 md:w-96 md:h-96 object-cover rounded-full border-4 border-blue-500 shadow-2xl"
+            />
+          </motion.div>
+
         </motion.div>
 
       </div>
