@@ -1,4 +1,4 @@
- import { useState } from "react";
+  import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaBars,
@@ -19,20 +19,45 @@ function Navbar() {
     { name: "Contact", href: "#contact" },
   ];
 
+  // Resume Download Function
+  const downloadResume = async () => {
+    try {
+      const response = await fetch("/resume.pdf");
+
+      if (!response.ok) {
+        throw new Error("Resume PDF not found");
+      }
+
+      const blob = await response.blob();
+
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "Gopalan-Resume.pdf";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Resume download error:", error);
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 pt-5">
-
       <div className="max-w-7xl mx-auto">
 
-        {/* Main Glass Navbar */}
+        {/* Outer Glow */}
         <motion.div
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="relative"
         >
-
-          {/* Outer Glow */}
           <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-blue-500/30 via-purple-500/20 to-blue-500/30 blur-sm" />
 
           {/* Navbar */}
@@ -45,19 +70,19 @@ function Navbar() {
 
               <div className="flex items-center justify-between">
 
-                {/* Brand */}
+                {/* Logo */}
                 <a
                   href="#home"
                   className="flex items-center gap-3 group"
                 >
                   <div className="relative">
 
-                    {/* Logo Glow */}
                     <div className="absolute inset-0 bg-blue-500 rounded-xl blur-md opacity-40 group-hover:opacity-70 transition" />
 
                     <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold text-white text-lg">
                       G
                     </div>
+
                   </div>
 
                   <div className="hidden sm:block">
@@ -80,35 +105,31 @@ function Navbar() {
                       href={link.href}
                       className="relative px-4 py-2 text-sm text-gray-400 hover:text-white rounded-lg transition-all duration-300 group"
                     >
-
-                      {/* Hover Background */}
                       <span className="absolute inset-0 rounded-lg bg-white/[0.04] opacity-0 group-hover:opacity-100 transition duration-300" />
 
                       <span className="relative z-10">
                         {link.name}
                       </span>
 
-                      {/* Bottom Indicator */}
                       <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] rounded-full bg-gradient-to-r from-blue-400 to-purple-500 group-hover:w-5 transition-all duration-300" />
-
                     </a>
                   ))}
 
                 </div>
 
-                {/* Resume Button */}
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noreferrer"
+                {/* Desktop Resume Download */}
+                <button
+                  type="button"
+                  onClick={downloadResume}
                   className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-purple-600 text-white text-sm font-semibold shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <FaDownload className="text-xs" />
                   Resume
-                </a>
+                </button>
 
-                {/* Mobile Button */}
+                {/* Mobile Menu Button */}
                 <button
+                  type="button"
                   onClick={() => setIsOpen(!isOpen)}
                   className="lg:hidden w-10 h-10 rounded-xl border border-white/10 bg-white/[0.04] flex items-center justify-center text-gray-300 hover:text-white hover:border-blue-500/50 transition"
                   aria-label="Toggle menu"
@@ -151,17 +172,18 @@ function Navbar() {
                           </motion.a>
                         ))}
 
-                        {/* Mobile Resume */}
-                        <a
-                          href="/resume.pdf"
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center justify-center gap-2 mt-3 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 font-semibold text-sm"
+                        {/* Mobile Resume Download */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            downloadResume();
+                            setIsOpen(false);
+                          }}
+                          className="flex items-center justify-center gap-2 mt-3 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 font-semibold text-sm w-full"
                         >
                           <FaDownload className="text-xs" />
                           Download Resume
-                        </a>
+                        </button>
 
                       </div>
 
