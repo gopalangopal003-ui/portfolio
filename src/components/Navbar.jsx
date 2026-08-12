@@ -1,4 +1,4 @@
-  import { useState } from "react";
+ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaBars,
@@ -19,48 +19,25 @@ function Navbar() {
     { name: "Contact", href: "#contact" },
   ];
 
-  // Resume Download Function
-  const downloadResume = async () => {
-    try {
-      const response = await fetch("/resume.pdf");
-
-      if (!response.ok) {
-        throw new Error("Resume PDF not found");
-      }
-
-      const blob = await response.blob();
-
-      const blobUrl = window.URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = "Gopalan-Resume.pdf";
-
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-
-      window.URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      console.error("Resume download error:", error);
-    }
+  // Resume direct download
+  const downloadResume = () => {
+    window.location.href = "/api/download-resume";
   };
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 pt-5">
       <div className="max-w-7xl mx-auto">
 
-        {/* Outer Glow */}
         <motion.div
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="relative"
         >
+          {/* Glow */}
           <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-blue-500/30 via-purple-500/20 to-blue-500/30 blur-sm" />
 
-          {/* Navbar */}
+          {/* Main Navbar */}
           <div className="relative bg-black/70 backdrop-blur-2xl border border-white/10 rounded-2xl">
 
             {/* Top Shine */}
@@ -117,7 +94,7 @@ function Navbar() {
 
                 </div>
 
-                {/* Desktop Resume Download */}
+                {/* Desktop Resume */}
                 <button
                   type="button"
                   onClick={downloadResume}
@@ -172,14 +149,14 @@ function Navbar() {
                           </motion.a>
                         ))}
 
-                        {/* Mobile Resume Download */}
+                        {/* Mobile Resume */}
                         <button
                           type="button"
                           onClick={() => {
                             downloadResume();
                             setIsOpen(false);
                           }}
-                          className="flex items-center justify-center gap-2 mt-3 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 font-semibold text-sm w-full"
+                          className="flex items-center justify-center gap-2 mt-3 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 font-semibold text-sm w-full text-white"
                         >
                           <FaDownload className="text-xs" />
                           Download Resume
